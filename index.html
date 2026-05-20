@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>VISORA STUDIO — Pitch Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --k:#0A0A0A; --g:#D6A85A; --g2:#C49840;
+  --c:#F5F0E8; --d:#111111; --m:#1A1A1A;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--k);
+  font-family:'DM Sans',sans-serif;user-select:none;color:var(--c);}
+
+/* ─ Deck & slides ─ */
+.deck{position:relative;width:100%;height:100%;}
+.slide{position:absolute;inset:0;opacity:0;pointer-events:none;
+  transition:opacity .5s ease;overflow:hidden;}
+.slide.on{opacity:1;pointer-events:all;}
+
+/* ─ Nav ─ */
+.nb{position:fixed;top:50%;transform:translateY(-50%);
+  width:clamp(36px,3.2vw,48px);height:clamp(36px,3.2vw,48px);
+  border-radius:50%;background:rgba(10,10,10,.7);
+  border:1px solid rgba(214,168,90,.22);color:var(--c);
+  font-size:clamp(13px,1.2vw,17px);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s;z-index:99;backdrop-filter:blur(4px);}
+.nb:hover{border-color:var(--g);background:rgba(214,168,90,.12);}
+.np{left:14px;}.nn{right:14px;}
+.dots{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;z-index:99;}
+.dot{width:6px;height:6px;border-radius:50%;
+  background:rgba(214,168,90,.25);cursor:pointer;transition:.3s;}
+.dot.on{background:var(--g);transform:scale(1.45);}
+
+/* ─ Shared atoms ─ */
+.lbl{font-size:clamp(9px,.9vw,12px);letter-spacing:.22em;
+  text-transform:uppercase;color:var(--g);opacity:.62;}
+.gbar{background:var(--g);}
+.hdiv{height:.5px;background:rgba(214,168,90,.15);}
+.logo-w{font-weight:700;font-size:clamp(15px,1.6vw,22px);
+  letter-spacing:.07em;color:rgba(245,240,232,.72);}
+.logo-s{font-size:clamp(7px,.65vw,9px);letter-spacing:.24em;
+  text-transform:uppercase;color:rgba(245,240,232,.3);margin-top:2px;}
+.logo-block{position:absolute;bottom:3.5%;left:5.5%;}
+.pgn{position:absolute;bottom:3%;right:5.5%;
+  font-size:clamp(8px,.72vw,10px);letter-spacing:.15em;
+  color:rgba(245,240,232,.17);}
+
+/* Hide footer on S1 (Hero), S2 (Context), S3 (Why Visora), and S7 (Contact) */
+#s1 .logo-block, #s1 .pgn,
+#s2 .logo-block, #s2 .pgn,
+#s3 .logo-block, #s3 .pgn,
+#s7 .logo-block, #s7 .pgn{display:none;}
+
+/* ═══════════════════════════════════════
+   S1 — COVER
+═══════════════════════════════════════ */
+#s1 .glow{position:absolute;inset:0;
+  background:radial-gradient(ellipse 55% 70% at 84% 35%,
+    rgba(214,168,90,.08) 0%,transparent 68%);}
+#s1 .tline{position:absolute;top:0;left:5.5%;right:5.5%;
+  height:.5px;background:rgba(214,168,90,.2);}
+
+/* Left column */
+#s1 .left{
+  position:absolute;top:0;left:0;width:72%;height:100%;
+  display:flex;flex-direction:column;
+  padding:5% 6% 5% 5.5%;
+}
+#s1 .wm{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(80px,14vw,188px);
+  line-height:.88;color:var(--c);letter-spacing:.02em;
+  flex-shrink:0;
+}
+#s1 .gu{height:4px;background:var(--g);
+  width:clamp(200px,28vw,380px);flex-shrink:0;margin-top:4px;}
+#s1 .studio{
+  font-weight:700;font-size:clamp(10px,1.2vw,16px);
+  color:rgba(214,168,90,.55);letter-spacing:.08em;
+  flex-shrink:0;margin-top:6px;
+}
+#s1 .partner{
+  font-size:clamp(11px,1.1vw,15px);letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(245,240,232,.38);
+  flex-shrink:0;margin-top:6px;
+}
+#s1 .tagrow{
+  display:flex;align-items:center;gap:14px;
+  flex-shrink:0;margin-top:12px;
+}
+#s1 .tl{width:36px;height:1px;background:var(--g);}
+#s1 .tt{font-size:clamp(11px,1.1vw,15px);letter-spacing:.15em;
+  text-transform:uppercase;color:rgba(245,240,232,.38);}
+
+#s1 .propbox{
+  flex:1;margin-top:clamp(24px,4vh,44px);
+  background:var(--d);
+  border:1px solid rgba(214,168,90,.16);
+  padding:clamp(16px,2.2vh,28px) clamp(18px,2vw,28px);
+  display:flex;flex-direction:column;gap:10px;
+}
+#s1 .propbox .lbl{display:block;}
+#s1 .proptext{
+  font-size:clamp(12px,1.25vw,17px);font-weight:300;
+  line-height:1.75;color:rgba(245,240,232,.65);
+}
+
+/* Right decorative column */
+#s1 .right{
+  position:absolute;top:0;right:0;width:40%;height:100%;
+  display:flex;flex-direction:column;
+  padding:5% 5.5% 5% 4%;
+  justify-content:flex-end;
+}
+#s1 .pills{
+  display:flex;flex-direction:column;gap:8px;
+  margin-bottom:clamp(40px,8vh,80px);
+}
+#s1 .pill{
+  padding:clamp(10px,1.4vh,16px) clamp(14px,1.5vw,20px);
+  border:1px solid rgba(214,168,90,.22);
+  background:rgba(17,17,17,.9);
+  font-size:clamp(11px,1.1vw,15px);
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(245,240,232,.55);display:flex;align-items:center;gap:10px;
+}
+#s1 .pill::before{content:'◈';color:var(--g);opacity:.7;font-size:9px;}
+#s1 .gdot{position:absolute;bottom:5%;right:5.5%;
+  width:10px;height:10px;border-radius:50%;background:var(--g);}
+
+/* ═══════════════════════════════════════
+   S2 — CONTEXT
+═══════════════════════════════════════ */
+#s2{background:var(--k);}
+#s2 .left{
+  position:absolute;inset:0 58% 0 0;
+  background:var(--d);
+  display:flex;flex-direction:column;
+  padding:5.5% 6% 10%;
+}
+#s2 .gvbar{position:absolute;top:0;left:42%;bottom:0;width:2px;background:var(--g);}
+#s2 .s2h{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(34px,5vw,64px);
+  line-height:1.02;color:var(--c);margin-top:14px;flex-shrink:0;
+}
+#s2 .s2h .g{color:var(--g);}
+#s2 .s2body{
+  font-size:clamp(12px,1.18vw,16px);font-weight:300;
+  line-height:1.8;color:rgba(245,240,232,.52);
+  margin-top:clamp(12px,2vh,20px);flex-shrink:0;
+}
+#s2 .ks{margin-top:clamp(14px,2.5vh,26px);flex:1;display:flex;flex-direction:column;justify-content:flex-end;}
+#s2 .ksttl{
+  font-size:clamp(9px,.88vw,11px);letter-spacing:.22em;
+  text-transform:uppercase;color:var(--g);opacity:.58;margin-bottom:10px;
+}
+#s2 .kslist{display:flex;flex-direction:column;gap:8px;}
+#s2 .ksi{
+  font-size:clamp(12px,1.12vw,15px);font-weight:300;
+  color:rgba(245,240,232,.52);padding-left:16px;position:relative;
+}
+#s2 .ksi::before{
+  content:'→';color:var(--g);opacity:.7;
+  position:absolute;left:0;font-size:10px;top:2px;
+}
+
+#s2 .right{
+  position:absolute;top:0;left:44%;right:0;height:100%;
+  display:flex;flex-direction:column;
+  padding:5% 5.5%;
+}
+.stblk{
+  flex:1;display:flex;flex-direction:column;
+  justify-content:center;border-top:1px solid rgba(214,168,90,.1);
+}
+.stblk:first-child{border-top:none;}
+.stn{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(52px,7.5vw,96px);
+  color:var(--g);line-height:1;
+}
+.std{
+  font-size:clamp(12px,1.18vw,16px);font-weight:300;
+  color:rgba(245,240,232,.55);margin-top:6px;line-height:1.6;
+}
+
+/* ═══════════════════════════════════════
+   S3 — WHY VISORA  2×2
+═══════════════════════════════════════ */
+#s3 .wrap{
+  position:absolute;inset:0;
+  padding:4.5% 5.5% 9%;
+  display:flex;flex-direction:column;
+}
+#s3 .s3h{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(32px,4.8vw,62px);
+  line-height:1;color:var(--c);margin-top:10px;flex-shrink:0;
+}
+#s3 .s3h span{color:var(--g);}
+#s3 .grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;gap:10px;
+  flex:1;margin-top:14px;
+}
+.pcard{
+  background:var(--d);border-top:3px solid var(--g);
+  padding:clamp(16px,2vh,24px) clamp(16px,1.8vw,24px);
+  display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px);
+}
+.pnum{font-size:clamp(9px,.85vw,11px);letter-spacing:.22em;color:var(--g);opacity:.5;}
+.phead{
+  font-weight:700;font-size:clamp(13px,1.4vw,18px);
+  color:var(--c);letter-spacing:.03em;
+}
+.pline{width:28px;height:1px;background:var(--g);opacity:.4;}
+.pbody{
+  font-size:clamp(12px,1.12vw,15px);font-weight:300;
+  line-height:1.75;color:rgba(245,240,232,.57);
+  flex:1;
+}
+
+/* ═══════════════════════════════════════
+   S4 — BUYER BEHAVIOR / VISUAL STRATEGY
+═══════════════════════════════════════ */
+/* Gold vertical divider */
+#s4 .s4-divider{
+  position:absolute;top:0;bottom:0;left:50%;
+  width:2px;background:var(--g);z-index:2;pointer-events:none;
+}
+/* Right half background */
+#s4::after{
+  content:'';position:absolute;top:0;right:0;bottom:0;width:50%;
+  background:var(--d);z-index:0;
+}
+/* Main grid: 2 cols, rows sized by tallest cell in each row = perfect alignment */
+#s4 .s4-grid{
+  position:absolute;inset:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:
+    auto   /* lbl */
+    auto   /* headline */
+    auto   /* rule */
+    auto   /* body */
+    1fr;   /* list — takes remaining space */
+  padding:4.5% 0 10%;
+  z-index:1;
+}
+#s4 .s4-cell{
+  padding:0 5.5%;
+  align-self:start;
+}
+/* section label */
+#s4 .s4-lbl{
+  font-size:clamp(9px,.9vw,12px);letter-spacing:.22em;
+  text-transform:uppercase;color:var(--g);opacity:.62;
+  padding-bottom:8px;
+}
+/* headline */
+#s4 .s4-head{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(20px,2.5vw,33px);
+  line-height:1.05;color:var(--c);
+  padding-bottom:10px;
+}
+#s4 .s4-head .g{color:var(--g);}
+/* gold rule */
+#s4 .s4-rule{
+  height:.5px;background:rgba(214,168,90,.15);
+  margin:0 5.5% 0;padding:0;
+  align-self:stretch;
+}
+/* intro body */
+#s4 .s4-body{
+  font-size:clamp(11px,1.05vw,14px);font-weight:300;
+  line-height:1.7;color:rgba(245,240,232,.5);
+  padding-top:8px;padding-bottom:0;
+}
+/* list */
+#s4 .s4-list{
+  display:flex;flex-direction:column;
+  padding-top:clamp(10px,1.4vh,16px);
+  align-self:start;
+}
+#s4 .bi{
+  font-size:clamp(11px,1.08vw,14px);font-weight:400;
+  color:rgba(245,240,232,.6);
+  display:flex;align-items:baseline;gap:10px;
+  padding:clamp(5px,.8vh,10px) 0;
+  border-bottom:1px solid rgba(245,240,232,.06);
+}
+#s4 .bi:last-child{border-bottom:none;}
+#s4 .bi::before{content:'→';color:var(--g);opacity:.65;font-size:10px;flex-shrink:0;}
+
+/* ═══════════════════════════════════════
+   S5 — VISUAL MARKETING SUPPORT
+═══════════════════════════════════════ */
+#s5 .wrap{
+  position:absolute;inset:0;
+  padding:4% 5.5% 9%;display:flex;flex-direction:column;
+}
+#s5 .s5h{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(28px,4vw,54px);
+  line-height:1;color:var(--c);margin-top:8px;flex-shrink:0;
+}
+#s5 .s5h span{color:var(--g);}
+#s5 .s5sub{
+  font-size:clamp(11px,1.05vw,14px);font-weight:300;
+  color:rgba(245,240,232,.45);margin-top:8px;flex-shrink:0;
+  letter-spacing:.01em;line-height:1.5;
+}
+#s5 .sgrid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:12px;flex:1;margin-top:14px;
+}
+.scard{
+  background:var(--d);border-top:3px solid var(--g);
+  padding:clamp(20px,2.5vh,32px) clamp(16px,1.6vw,22px);
+  display:flex;flex-direction:column;gap:clamp(10px,1.3vh,16px);
+}
+.snum{font-size:clamp(9px,.85vw,11px);letter-spacing:.22em;color:var(--g);opacity:.5;}
+.sttl{
+  font-weight:700;font-size:clamp(12px,1.25vw,16px);
+  color:var(--c);line-height:1.3;
+}
+.sline{width:22px;height:1px;background:var(--g);opacity:.38;}
+.sdesc{
+  font-size:clamp(11px,1.05vw,14px);font-weight:300;
+  line-height:1.8;color:rgba(245,240,232,.55);
+  flex:1;
+}
+
+/* ═══════════════════════════════════════
+   S6 — VIDEO (was S7)
+═══════════════════════════════════════ */
+#s6 .thumb{
+  position:absolute;top:0;right:0;
+  width:calc(100vh * 9 / 16);height:100%;
+  object-fit:cover;object-position:center;
+}
+#s6 .fade{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,var(--k) 0%,var(--k) 30%,rgba(10,10,10,.12) 100%);
+  pointer-events:none;
+}
+#s6 .left{
+  position:absolute;top:0;left:0;
+  width:58%;height:100%;
+  padding:5.5% 5.5% 10%;
+  display:flex;flex-direction:column;
+}
+#s6 .s6h{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(38px,5.8vw,72px);
+  line-height:1;color:var(--c);margin-top:12px;flex-shrink:0;
+}
+#s6 .s6h span{color:var(--g);}
+#s6 .s6body{
+  font-size:clamp(12px,1.18vw,16px);font-weight:300;
+  line-height:1.8;color:rgba(245,240,232,.54);
+  margin-top:14px;flex-shrink:0;
+}
+#s6 .specs{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:8px;margin-top:clamp(16px,2.5vh,26px);flex-shrink:0;
+}
+.spcard{
+  background:var(--d);border-top:2px solid var(--g);
+  padding:clamp(10px,1.4vh,16px) clamp(12px,1.3vw,16px);
+}
+.spval{
+  font-weight:700;font-size:clamp(14px,1.7vw,22px);color:var(--g);
+}
+.splbl{
+  font-size:clamp(9px,.88vw,12px);color:rgba(245,240,232,.4);
+  margin-top:3px;letter-spacing:.06em;
+}
+#s6 .spill{
+  margin-top:clamp(10px,1.5vh,16px);flex-shrink:0;
+  padding:clamp(10px,1.4vh,16px) clamp(14px,1.5vw,18px);
+  background:var(--d);border:1px solid rgba(214,168,90,.18);
+  display:flex;flex-direction:column;gap:5px;
+}
+#s6 .smain{
+  font-size:clamp(11px,1.1vw,14px);font-weight:600;
+  color:rgba(245,240,232,.78);
+}
+#s6 .smain::before{content:'♪  ';color:var(--g);}
+#s6 .ssub{
+  font-size:clamp(10px,.98vw,13px);font-weight:300;
+  color:rgba(245,240,232,.42);padding-left:18px;
+}
+#s6 .playzone{
+  position:absolute;top:0;right:0;
+  width:calc(100vh * 9 / 16);height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:14px;cursor:pointer;
+}
+.pring{
+  width:clamp(70px,7.5vw,100px);height:clamp(70px,7.5vw,100px);
+  border-radius:50%;background:rgba(214,168,90,.22);
+  display:flex;align-items:center;justify-content:center;
+  transition:.25s;
+}
+.playzone:hover .pring{transform:scale(1.08);background:rgba(214,168,90,.32);}
+.pinner{
+  width:clamp(48px,5vw,66px);height:clamp(48px,5vw,66px);
+  border-radius:50%;background:var(--g);
+  display:flex;align-items:center;justify-content:center;
+}
+.ptri{
+  width:0;height:0;border-style:solid;
+  border-width:clamp(9px,1.1vw,14px) 0 clamp(9px,1.1vw,14px) clamp(15px,1.8vw,22px);
+  border-color:transparent transparent transparent #0A0A0A;margin-left:4px;
+}
+.pcap{
+  font-size:clamp(9px,.88vw,11px);letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(245,240,232,.62);
+}
+
+
+/* Native embedded video fix: more stable on desktop than JS modal autoplay */
+#s6 .showcase-video{
+  background:#000;
+  z-index:3;
+  pointer-events:auto;
+  border-left:1px solid rgba(214,168,90,.18);
+}
+#s6 .playzone{display:none !important;}
+
+/* ═══════════════════════════════════════
+   S6 — MOBILE FIX (portrait / narrow screens)
+═══════════════════════════════════════ */
+@media (max-width:700px){
+  /* Poster image: full-slide background, semi-transparent */
+  #s6 .thumb{
+    display:block;
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:100%;
+    object-fit:cover;object-position:center;
+    opacity:.42;
+    z-index:0;
+  }
+  /* Dark gradient overlay — top and bottom heavier for readability */
+  #s6 .fade{
+    display:block;
+    background:linear-gradient(
+      to bottom,
+      rgba(10,10,10,.82) 0%,
+      rgba(10,10,10,.55) 45%,
+      rgba(10,10,10,.88) 100%
+    );
+    z-index:1;
+  }
+  /* Stack left content to top, full width, above image */
+  #s6 .left{
+    width:100%;
+    padding:5% 6% 0;
+    height:auto;
+    position:relative;
+    z-index:2;
+  }
+  /* Shrink specs grid to 2 cols on mobile */
+  #s6 .specs{
+    grid-template-columns:repeat(2,1fr);
+  }
+  /* Footer: keep both lines visible on mobile */
+  #s6 .logo-s{display:block;}
+  #s6 .logo-block{bottom:60px;z-index:2;}
+  #s6 .pgn{z-index:2;bottom:48px;}
+  /* Play button: add bottom padding to clear footer and nav dots */
+  #s6 .playzone{
+    position:relative;
+    width:100%;height:auto;
+    top:auto;right:auto;
+    margin-top:clamp(20px,3vh,28px);
+    padding:clamp(20px,4vh,28px) 0 clamp(60px,5vh,80px);
+    justify-content:center;
+    z-index:2;pointer-events:auto;
+    gap:8px;
+  }
+  #s6 .pring{width:64px;height:64px;}
+  #s6 .pinner{width:46px;height:46px;}
+  .ptri{border-width:9px 0 9px 15px;}
+  #s6 .pcap{font-size:9px;margin-top:4px;}
+  /* Slide scrolls if content taller than viewport */
+  #s6{overflow-y:auto;}
+  /* All direct children flow in document order above image */
+  #s6 > *:not(.thumb):not(.fade):not(.logo-block):not(.pgn){position:relative;}
+}
+
+
+@media (max-width:700px){
+  #s6 .showcase-video{
+    position:relative;
+    width:88%;
+    height:auto;
+    max-height:42vh;
+    margin:22px auto 110px;
+    opacity:1;
+    z-index:3;
+    object-fit:contain;
+    display:block;
+    border:1px solid rgba(214,168,90,.25);
+    background:#000;
+  }
+}
+
+/* ═══════════════════════════════════════
+   S8 — CTA
+═══════════════════════════════════════ */
+#s7 .rp{
+  position:absolute;top:0;right:0;bottom:0;width:38%;
+  background:var(--g);
+}
+#s7 .rs{
+  position:absolute;top:0;right:0;width:38%;height:50%;
+  background:rgba(196,152,64,.25);pointer-events:none;
+}
+
+#s7 .left{
+  position:absolute;top:0;left:0;width:62%;height:100%;
+  padding:6% 7% 12%;display:flex;flex-direction:column;
+  overflow:hidden;
+}
+#s7 .pilot-blk{
+  margin-top:clamp(8px,1.1vh,14px);flex-shrink:0;
+  padding:clamp(8px,1.0vh,12px) clamp(11px,1.1vw,15px);
+  border:1px solid rgba(214,168,90,.18);
+  background:rgba(214,168,90,.03);
+  max-width:390px;
+}
+#s7 .pilot-tag{
+  font-size:clamp(7px,.62vw,8px);letter-spacing:.22em;
+  text-transform:uppercase;color:var(--g);opacity:.7;margin-bottom:4px;
+}
+#s7 .pilot-desc{
+  font-size:clamp(10px,.92vw,12px);font-weight:400;
+  color:rgba(245,240,232,.75);line-height:1.45;margin-bottom:5px;
+}
+#s7 .pilot-meta{
+  display:flex;flex-wrap:wrap;gap:2px 8px;
+  font-size:clamp(8px,.7vw,10px);color:rgba(245,240,232,.32);
+  letter-spacing:.02em;
+}
+#s7 .pilot-dot{opacity:.2;}
+#s7 .s7h{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(34px,4.55vw,62px);
+  line-height:.93;color:var(--c);margin-top:clamp(8px,1.1vh,13px);flex-shrink:0;
+  letter-spacing:.01em;
+}
+#s7 .s7h .g{color:var(--g);}
+#s7 .s7body{
+  font-size:clamp(10px,.92vw,12px);font-weight:300;
+  line-height:1.6;color:rgba(245,240,232,.42);
+  margin-top:clamp(7px,1.0vh,12px);max-width:390px;flex-shrink:0;
+}
+#s7 .ctabtn{
+  display:inline-flex;align-items:center;
+  margin-top:clamp(10px,1.4vh,16px);flex-shrink:0;
+  padding:clamp(10px,1.3vh,14px) clamp(16px,1.6vw,22px);
+  background:var(--d);border:1px solid rgba(214,168,90,.5);
+  color:rgba(245,240,232,.88);font-weight:700;
+  font-size:clamp(10px,1.0vw,13px);letter-spacing:.08em;
+  cursor:pointer;transition:.2s;text-decoration:none;width:fit-content;
+}
+#s7 .ctabtn:hover{border-color:var(--g);background:rgba(214,168,90,.1);}
+#s7 .recap{display:none;}
+#s7 .sep{opacity:.15;}
+/* Right contact panel — tighter vertical spacing */
+#s7 .right{
+  position:absolute;top:0;right:0;width:38%;height:100%;
+  padding:0 7%;display:flex;flex-direction:column;
+  justify-content:center;gap:0;
+  z-index:10;
+}
+#s7 .cblk{
+  padding:clamp(12px,1.8vh,22px) 0;
+  display:flex;flex-direction:column;
+  pointer-events:auto;
+}
+#s7 .cblk+.cblk{border-top:1px solid rgba(0,0,0,.1);}
+#s7 .clbl{
+  font-size:clamp(7px,.72vw,9px);letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(0,0,0,.4);
+}
+#s7 .cval{
+  font-weight:700;font-size:clamp(13px,1.4vw,18px);
+  color:#0A0A0A;margin-top:4px;pointer-events:auto;
+}
+#s7 .ghost{
+  position:absolute;bottom:12%;right:4%;
+  font-family:'Anton',sans-serif;font-size:clamp(40px,5.5vw,74px);
+  color:rgba(0,0,0,.06);letter-spacing:.08em;pointer-events:none;
+}
+
+/* ── Video modal ── */
+#vm{display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.94);z-index:999;
+  align-items:center;justify-content:center;
+  flex-direction:column;gap:14px;}
+#vm.open{display:flex;}
+#vm video{max-height:88vh;max-width:92vw;
+  width:auto;height:auto;
+  border:1px solid rgba(214,168,90,.2);
+  background:#000;}
+#vcls{position:absolute;top:22px;right:28px;
+  color:rgba(245,240,232,.45);font-size:24px;
+  cursor:pointer;background:none;border:none;
+  font-family:inherit;line-height:1;transition:.2s;}
+#vcls:hover{color:var(--g);}
+.vlink{color:rgba(245,240,232,.65);font-size:12px;text-decoration:none;border-bottom:1px solid rgba(214,168,90,.35);padding-bottom:2px;}
+.vlink:hover{color:var(--g);}
+</style>
+</head>
+<body>
+
+<!-- VIDEO MODAL -->
+<div id="vm" aria-hidden="true" onclick="if(event.target===this) closeV()">
+  <button id="vcls" type="button" onclick="closeV()" aria-label="Close video">✕</button>
+  <video id="mv" playsinline webkit-playsinline controls preload="metadata" onclick="event.stopPropagation()">
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<div class="deck">
+
+<!-- ══ S1 COVER ══ -->
+<div class="slide on" id="s1">
+  <div style="position:absolute;inset:0;background:var(--k);"></div>
+  <div class="glow"></div>
+  <div class="tline"></div>
+  <div class="left">
+    <div class="lbl">Real Estate Visual Marketing Partner</div>
+    <div class="wm">VISORA</div>
+    <div class="gu"></div>
+    <div class="tagrow">
+      <div class="tl"></div>
+      <div class="tt">Desire. Before they visit.</div>
+    </div>
+    <div class="propbox">
+      <span class="lbl">What We Do</span>
+      <div class="proptext">We turn renders into emotional, sales-oriented marketing content for social media, launches and project presentations.</div>
+    </div>
+  </div>
+
+  <div class="logo-block"><div class="logo-w">VISORA</div><div class="logo-s">Real Estate Visual Marketing Partner</div></div>
+  <div class="pgn">01</div>
+</div>
+
+<!-- ══ S2 CONTEXT ══ -->
+<div class="slide" id="s2">
+  <div class="left">
+    <div class="lbl">01 — Context</div>
+    <div class="s2h">THE REAL<br>ESTATE MARKET<br><span class="g">IS VISUAL.</span></div>
+    <div class="s2body">The real battle in real estate is won long before the first inquiry. Buyers form shortlists based on perception, emotion, lifestyle and brand visibility — before they compare specifications.</div>
+    <div class="ks">
+      <div class="ksttl">Key Shift →</div>
+      <div class="kslist">
+        <div class="ksi">Social-first content</div>
+        <div class="ksi">Launch-ready visuals</div>
+        <div class="ksi">Emotional storytelling</div>
+        <div class="ksi">Stronger project positioning</div>
+      </div>
+    </div>
+  </div>
+  <div class="gvbar"></div>
+  <div class="right">
+    <div class="stblk"><div class="stn">97%</div><div class="std">of buyers start their<br>property search online</div></div>
+    <div class="stblk"><div class="stn">3×</div><div class="std">more engagement with<br>cinematic / social-first content</div></div>
+    <div class="stblk"><div class="stn">40%</div><div class="std">faster perception &amp; impact<br>with strong pre-sale visuals</div></div>
+  </div>
+  <div class="logo-block"><div class="logo-w">VISORA</div><div class="logo-s">Real Estate Visual Marketing Partner</div></div>
+  <div class="pgn">02</div>
+</div>
+
+<!-- ══ S3 WHY VISORA ══ -->
+<div class="slide" id="s3">
+  <div style="position:absolute;inset:0;background:var(--k);"></div>
+  <div class="wrap">
+    <div class="lbl">02 — Why Visora?</div>
+    <div class="s3h">WHY <span>VISORA?</span></div>
+    <div class="hdiv" style="margin-top:10px;flex-shrink:0;"></div>
+    <div class="grid">
+      <div class="pcard"><div class="pnum">01</div><div class="phead">SALES-ORIENTED VISUAL THINKING</div><div class="pline"></div><div class="pbody">We structure visuals around buyer attention, emotional engagement and stronger positioning.</div></div>
+      <div class="pcard"><div class="pnum">02</div><div class="phead">RENDER-TO-MARKETING CONTENT</div><div class="pline"></div><div class="pbody">We transform renders, floorplans, moodboards and launch materials into presentation-ready marketing assets for launches, social media and project presentations.</div></div>
+      <div class="pcard"><div class="pnum">03</div><div class="phead">OFF-PLAN ADVANTAGE</div><div class="pline"></div><div class="pbody">We help buyers emotionally experience projects before they physically exist — creating desire and decision-making momentum before construction is complete.</div></div>
+      <div class="pcard"><div class="pnum">04</div><div class="phead">FLEXIBLE CREATIVE PARTNER</div><div class="pline"></div><div class="pbody">We integrate smoothly with internal marketing teams, agencies and developers — not as a replacement, but as additional creative capacity for launches, presentations and selected formats.</div></div>
+    </div>
+  </div>
+  <div class="logo-block"><div class="logo-w">VISORA</div><div class="logo-s">Real Estate Visual Marketing Partner</div></div>
+  <div class="pgn">03</div>
+</div>
+
+<!-- ══ S4 BUYERS / STRATEGY ══ -->
+<div class="slide" id="s4">
+  <div style="position:absolute;inset:0;background:var(--k);"></div>
+  <!-- gold divider column separator -->
+  <div class="s4-divider"></div>
+  <div class="s4-grid">
+    <!-- Row 1: section label -->
+    <div class="s4-cell s4-lbl">03 — Buyer Behavior</div>
+    <div class="s4-cell s4-lbl">04 — Visual Strategy</div>
+    <!-- Row 3: main headline -->
+    <div class="s4-cell s4-head">HOW MODERN BUYERS<br>CHOOSE BEFORE<br><span class="g">THEY INQUIRE.</span></div>
+    <div class="s4-cell s4-head">HOW WE<br><span class="g">RESPOND.</span></div>
+    <!-- Row 4: gold divider line -->
+    <div class="s4-cell s4-rule"></div>
+    <div class="s4-cell s4-rule"></div>
+    <!-- Row 5: intro paragraph -->
+    <div class="s4-cell s4-body">Today buyers choose emotionally before they choose logically.</div>
+    <div class="s4-cell s4-body">We combine emotional storytelling with sales-oriented visual structure for modern real estate marketing.</div>
+    <!-- Row 6: list -->
+    <div class="s4-cell s4-list">
+      <div class="bi">Lifestyle before specifications</div>
+      <div class="bi">Emotion before floorplans</div>
+      <div class="bi">Short-form before long presentations</div>
+      <div class="bi">Perception before comparison</div>
+      <div class="bi">Storytelling before technical details</div>
+      <div class="bi">Visibility before direct inquiry</div>
+    </div>
+    <div class="s4-cell s4-list s4-list-r">
+      <div class="bi">Attention-driven openings</div>
+      <div class="bi">Emotional pacing &amp; lifestyle positioning</div>
+      <div class="bi">Social-first structure</div>
+      <div class="bi">Premium sound design</div>
+      <div class="bi">Multilingual presentation</div>
+      <div class="bi">Adaptation across platforms</div>
+    </div>
+  </div>
+  <div class="logo-block"><div class="logo-w">VISORA</div><div class="logo-s">Real Estate Visual Marketing Partner</div></div>
+  <div class="pgn">04</div>
+</div>
+
+<!-- ══ S5 VISUAL MARKETING SUPPORT ══ -->
+<div class="slide" id="s5">
+  <div style="position:absolute;inset:0;background:var(--k);"></div>
+  <div class="wrap">
+    <div class="lbl">05 — What We Create</div>
+    <div class="s5h">VISUAL MARKETING <span>SUPPORT.</span></div>
+    <div class="s5sub">From renders and project materials to videos, social content and launch-ready assets.</div>
+    <div class="hdiv" style="margin-top:10px;flex-shrink:0;"></div>
+    <div class="sgrid">
+      <div class="scard">
+        <div class="snum">01</div>
+        <div class="sttl">Project Presentation Videos</div>
+        <div class="sline"></div>
+        <div class="sdesc">Off-plan presentations, walkthroughs and commercial showcases designed to present the project clearly and emotionally.</div>
+      </div>
+      <div class="scard">
+        <div class="snum">02</div>
+        <div class="sttl">Social-First Content</div>
+        <div class="sline"></div>
+        <div class="sdesc">Short-form content for Reels, TikTok, YouTube Shorts, launch campaigns and paid advertising.</div>
+      </div>
+      <div class="scard">
+        <div class="snum">03</div>
+        <div class="sttl">Render-to-Video Adaptation</div>
+        <div class="sline"></div>
+        <div class="sdesc">Turning existing renders and project materials into emotional storytelling, teasers and launch-ready content.</div>
+      </div>
+      <div class="scard">
+        <div class="snum">04</div>
+        <div class="sttl">Visual Support for Marketing Teams</div>
+        <div class="sline"></div>
+        <div class="sdesc">Multilingual versions, subtitles, social cutdowns and additional creative capacity for launches and selected formats.</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo-block"><div class="logo-w">VISORA</div><div class="logo-s">Real Estate Visual Marketing Partner</div></div>
+  <div class="pgn">05</div>
+</div>
+
+<!-- ══ S6 VIDEO ══ -->
+<div class="slide" id="s6">
+  <div style="position:absolute;inset:0;background:var(--k);"></div>
+  <div class="fade"></div>
+  <div class="left">
+    <div class="lbl">07 — Quality in Motion</div>
+    <div class="s6h">QUALITY<br><span>IN MOTION.</span></div>
+    <div class="hdiv" style="margin-top:10px;flex-shrink:0;"></div>
+    <div class="s6body">Every frame crafted not only to look premium — but to elevate project perception and create stronger emotional connections with buyers.</div>
+    <div class="specs">
+      <div class="spcard"><div class="spval">4K</div><div class="splbl">Delivery</div></div>
+      <div class="spcard"><div class="spval">Cinematic</div><div class="splbl">Colour Grade</div></div>
+      <div class="spcard"><div class="spval">Pro Sound</div><div class="splbl">Design</div></div>
+      <div class="spcard"><div class="spval">Multilingual</div><div class="splbl">Voice-over</div></div>
+    </div>
+    <div class="spill">
+      <div class="smain">Custom Soundtrack &amp; Professional Sound Design</div>
+      <div class="ssub">Native voice-over available in any language</div>
+    </div>
+  </div>
+  <video class="thumb showcase-video" controls playsinline preload="metadata">
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="playzone" onclick="openV()">
+    <div class="pring"><div class="pinner"><div class="ptri"></div></div></div>
+    <div class="pcap">Play video</div>
+  </div>
+  <div class="logo-block"><div class="logo-w">VISORA</div><div class="logo-s">Real Estate Visual Marketing Partner</div></div>
+  <div class="pgn">06</div>
+</div>
+
+<!-- ══ S7 CTA ══ -->
+<div class="slide" id="s7">
+  <div style="position:absolute;inset:0;background:var(--k);"></div>
+  <div class="rp"></div><div class="rs"></div>
+  <div class="left">
+    <div class="lbl">08 — Final Message</div>
+    <div class="s7h">LET'S<br>BUILD<br><span class="g">DESIRE.</span></div>
+    <div class="hdiv" style="margin-top:10px;width:65%;flex-shrink:0;"></div>
+    <div class="s7body">Modern buyers discover projects through content long before direct contact. The developers who build stronger visual perception earlier — build stronger positioning in the market.</div>
+    <div class="pilot-blk">
+      <div class="pilot-tag">POSSIBLE FIRST STEP</div>
+      <div class="pilot-desc">Begin with a 30-sec pilot presentation video based on your existing renders.</div>
+      <div class="pilot-meta">
+        <span class="pilot-item">Delivery: 4–7 working days</span>
+        <span class="pilot-dot">·</span>
+        <span class="pilot-item">Includes: video concept, sound design and text overlays</span>
+      </div>
+    </div>
+    <a class="ctabtn" href="mailto:hi.visora@gmail.com">START A PROJECT &nbsp;→</a>
+    <div class="recap">
+      Presentation Videos <span class="sep">·</span> Social Media <span class="sep">·</span> Render-to-Video <span class="sep">·</span> Visual Support
+    </div>
+  </div>
+  <div class="right">
+    <div class="cblk"><div class="clbl">Contact</div><div class="cval">DIANA PLAVNIEVA</div></div>
+    <div class="cblk"><div class="clbl">Phone</div><div class="cval"><a href="https://wa.me/35796564658" style="color:#0A0A0A;text-decoration:none;font-weight:700;"><strong>+357 96 56 46 58</strong></a></div></div>
+    <div class="cblk"><div class="clbl">Email</div><div class="cval"><a href="mailto:hi.visora@gmail.com" style="color:#0A0A0A;text-decoration:none;font-weight:400;letter-spacing:0;font-size:clamp(12px,1.3vw,17px);pointer-events:auto;display:inline-block;">hi.visora@gmail.com</a></div></div>
+  </div>
+  <div class="ghost">VISORA</div>
+  <div class="logo-block"><div class="logo-w">VISORA</div><div class="logo-s">Real Estate Visual Marketing Partner</div></div>
+  <div class="pgn">07</div>
+</div>
+
+</div><!-- /deck -->
+
+<button class="nb np" onclick="go(-1)">&#8592;</button>
+<button class="nb nn" onclick="go(1)">&#8594;</button>
+<div class="dots" id="dots"></div>
+
+<script>
+const sl=document.querySelectorAll('.slide');
+const dt=document.getElementById('dots');
+let cur=0,tot=sl.length;
+sl.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' on':'');d.onclick=()=>goTo(i);dt.appendChild(d);});
+function goTo(n){sl[cur].classList.remove('on');dt.children[cur].classList.remove('on');cur=(n+tot)%tot;sl[cur].classList.add('on');dt.children[cur].classList.add('on');}
+function go(d){goTo(cur+d);}
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();go(1);}
+  if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();go(-1);}
+  if(e.key==='Escape')closeV();
+});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>45)go(dx<0?1:-1);},{passive:true});
+function openV(){
+  const modal=document.getElementById('vm');
+  const video=document.getElementById('mv');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  video.muted=false;
+  video.volume=1;
+  video.currentTime=0;
+  const playPromise=video.play();
+  if(playPromise!==undefined){
+    playPromise.catch(()=>{
+      // If a browser blocks autoplay for any reason, controls stay visible so the user can press Play manually.
+    });
+  }
+}
+function closeV(){
+  const modal=document.getElementById('vm');
+  const video=document.getElementById('mv');
+  video.pause();
+  video.currentTime=0;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+}
+</script>
+</body>
+</html>
